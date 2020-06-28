@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano version="1.17">
+
+    
+  <!-- Spot Style - Default Point Spot Style 1 -->
+  <style name="IconDefaultPointSpotStyle1"
+         url="%FIRSTXML%/spots/hotspot_image_user_defaultpoint0.png"
+         visible="false"
+
+
+         onhover="onhoverIconDefaultPointSpotStyle1"
+         onout="onoutIconDefaultPointSpotStyle1"
+         height="32"
+         width="32"
+         />
+  <action name="onhoverIconDefaultPointSpotStyle1">
+    showtooltip(hotspot);
+  </action>
+  <action name="onoutIconDefaultPointSpotStyle1">
+    hideTooltip();
+
+
+
+  </action>
+
+          <!-- unsupported kind of display : PointMap -->
+
+  <!-- ******************* -->
+  <!-- Classic Control Bar -->
+  <!-- ******************* -->
+
+  <krpano theme2barbuilt="false" theme2backgroundwidthwhenclosed="0" theme2backgroundwidthwhenopened="0" theme2IsOpened="false" />
+  <events name="theme2events" onxmlcomplete="theme2buildMenuBar();" keep="true"/>
+  <action name="theme2buildMenuBar">
+    ifnot (theme2barbuilt, theme2buildMenu(); set(theme2barbuilt, true););
+  </action>
+
+  <action name="theme2buildMenu">
+    
+    set(theme2button_pos, 20);
+
+    set(layer[theme2btn_hidecontrols].x, get(theme2button_pos));
+    set(layer[theme2btn_showcontrols].x, get(theme2button_pos));
+    inc(theme2button_pos, 36);
+    add(theme2backgroundwidthwhenclosed, get(theme2button_pos), 20);
+
+
+
+    if (device.desktop,
+      set(layer[theme2btn_display_help].x, get(theme2button_pos));
+      set(layer[theme2btn_close_help  ].x, get(theme2button_pos));
+      inc(theme2button_pos, 36);
+    );
+
+    if (device.fullscreensupport,
+      set(layer[theme2btn_openfs ].x, get(theme2button_pos));
+      set(layer[theme2btn_closefs].x, get(theme2button_pos));
+      inc(theme2button_pos, 36);
+    );
+
+
+
+    set(layer[theme2btn_autorotate_on ].x, get(theme2button_pos));
+    set(layer[theme2btn_autorotate_off].x, get(theme2button_pos));
+    inc(theme2button_pos, 36);
+
+
+
+    if (device.desktop,
+      set(layer[theme2btn_ctrlmode_drag_to].x, get(theme2button_pos));
+      set(layer[theme2btn_ctrlmode_move_to].x, get(theme2button_pos));
+      inc(theme2button_pos, 36);
+    );
+
+
+
+    if (device.desktop,
+        set(layer[theme2btn_right].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+        set(layer[theme2btn_left].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+    );
+    if (device.desktop,
+        set(layer[theme2btn_down].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+        set(layer[theme2btn_up].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+    );
+    if (device.desktop,
+        set(layer[theme2btn_out].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+        set(layer[theme2btn_in].x, get(theme2button_pos));
+        inc(theme2button_pos, 36);
+    );
+    inc(theme2button_pos, 20);
+
+    set(theme2backgroundwidthwhenopened, get(theme2button_pos));
+    
+    
+    add(theme2VerifyVisibility, 20, 20);
+    if(theme2backgroundwidthwhenopened == 20,
+      set(theme2backgroundwidthwhenopened, 0);
+    );
+
+	
+	
+  </action>
+
+	<events name="theme2StartTourEvents" onTourStart="theme2CallOnStartTour();" keep="true" />
+
+	<action name="theme2CallOnStartTour">
+		
+		set(layer[theme2menu_controlbar_bg_img].width, get(theme2button_pos));
+		set(layer[theme2menu_controlbar_bg].width, get(theme2button_pos));
+		theme2showMenuControls();
+	</action>
+
+  <style name="theme2_btn_style"
+         keep="true"
+         alpha="0.8"
+         edge="right" align="right"
+         width="36" height="36"
+         zorder="2"
+         onover="theme2ctrlbaronoveraction();"
+         onout="theme2ctrlbaronoutaction();"
+	onhover="showTooltip(bottom, theme2menuTooltipStyle, bottom);"
+         />
+  <action name="theme2ctrlbaronoveraction">
+    tween(alpha,1,0.1,easeoutquad);
+    tween(y,-2,0.1,easeoutquad);
+  </action>  
+  <action name="theme2ctrlbaronoutaction">
+    tween(alpha,0.8);
+    tween(y,0,0.1,easeoutquad);
+    hideTooltip();
+  </action>
+
+  <layer name="theme2menu_controlbar_bg_img"
+         keep="true"
+         align="bottom"
+         x="0" y="10"
+         url="%FIRSTXML%/graphics/classiccontrolbar/footer.png"
+         zorder="0"
+         width="40"
+         height="40"
+         scale9grid="10|10|80|80"
+         visible="false"
+         />
+  <layer name="theme2menu_controlbar_bg"
+         keep="true"
+         align="bottom"
+         x="0" y="10"
+         type="container"
+         zorder="1"
+         width="40"
+         height="40"
+         visible="false"
+         alpha="1.0"
+         >
+
+
+
+    <layer name="theme2btn_ctrlmode_move_to"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_to.png"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicctrlmodeMoveTip"
+            onclick="setControlModeMoveTo();"
+            visible="false"
+            devices="desktop"
+            />
+    <layer name="theme2btn_ctrlmode_drag_to"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_drag_to.png"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicctrlmodeDragTip"
+            onclick="setControlModeDragTo();"
+            visible="false"
+            devices="desktop"
+            />
+
+    <layer name="theme2btn_in"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_zoom_in.png"
+            ondown="set(fov_moveforce, -1);"
+            onup="set(fov_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classiczoomInTip"
+            devices="desktop"
+            visible="false"
+            />
+    <layer name="theme2btn_out"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_zoom_out.png"
+            ondown="set(fov_moveforce, +1);"
+            onup="set(fov_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classiczoomOutTip"
+            devices="desktop"
+            visible="false"
+            />
+
+    <layer name="theme2btn_left"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_left.png"
+            ondown="set(hlookat_moveforce, -1);"
+            onup="set(hlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveLeftTip"
+            devices="desktop"
+            visible="false"
+            />
+    <layer name="theme2btn_right"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_right.png"
+            ondown="set(hlookat_moveforce, +1);"
+            onup="set(hlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveRightTip"
+            devices="desktop"
+            visible="false"
+            />
+
+    <layer name="theme2btn_up"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_up.png"
+            ondown="set(vlookat_moveforce, -1);"
+            onup="set(vlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveUpTip"
+            devices="desktop"
+            visible="false"
+            />
+    <layer name="theme2btn_down"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_move_down.png"
+            ondown="set(vlookat_moveforce, +1);"
+            onup="set(vlookat_moveforce, 0);"
+            style="theme2_btn_style"
+            tooltip="controlBar_classicmoveDownTip"
+            devices="desktop"
+            visible="false"
+            />
+
+
+
+
+
+    <layer name="theme2btn_openfs"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_enter_fs.png"
+            onclick="enterFullscreen();"
+            style="theme2_btn_style"
+            devices="fullscreensupport"
+            visible="false"
+            tooltip="controlBar_classicopenFsTip"
+            />
+    <layer name="theme2btn_closefs"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_close_fs.png"
+            onclick="exitFullscreen();"
+            style="theme2_btn_style"
+            visible="false"
+            devices="fullscreensupport"
+            tooltip="controlBar_classiccloseFsTip"
+            />
+
+    <layer name="theme2btn_autorotate_on"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_start_autorotation.png"
+            onclick="startautorotation();"
+            style="theme2_btn_style"
+            visible="false"
+            tooltip="controlBar_classicautorotateOnTip"
+            />
+    <layer name="theme2btn_autorotate_off"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_stop_autorotation.png"
+            onclick="stopautorotation();"
+            style="theme2_btn_style"
+            visible="false"
+            tooltip="controlBar_classicautorotateOffTip"
+            />
+
+
+
+    <layer name="theme2btn_display_help"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_help.png"
+            onclick="theme2displayHelp();"
+            style="theme2_btn_style"
+            devices="desktop"
+            visible="false"
+            tooltip="controlBar_classicdisplayHelpTip"
+            />
+    <layer name="theme2btn_close_help"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_help.png"
+            onclick="theme2closeHelp();"
+            style="theme2_btn_style"
+            visible="false"
+            devices="desktop"
+            tooltip="controlBar_classichideHelpTip"
+            />
+
+
+
+    <layer name="theme2btn_hidecontrols"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_hide_controls.png"
+            style="theme2_btn_style"
+            onclick="theme2hideMenuControls();hideTourControls();"
+            visible="false"
+            tooltip="controlBar_classichideControlsTip"
+            />
+    <layer name="theme2btn_showcontrols"
+            url="%FIRSTXML%/graphics/classiccontrolbar/btn_show_controls.png"
+            style="theme2_btn_style"
+            onclick="theme2showMenuControls();showTourControls();"
+            tooltip="controlBar_classicdisplayControlsTip"
+            visible="false"
+            />
+  </layer>
+
+
+
+	<events name="theme2controlmodechangedevent" 
+		oncontrolmodechanged="theme2updateControlModeButtons();" 
+		keep="true" />
+	<action name="theme2HideControlModeButtons">
+		set(layer[theme2btn_ctrlmode_move_to].visible, false);
+		set(layer[theme2btn_ctrlmode_drag_to].visible, false);
+	</action>
+	<action name="theme2ShowControlModeButtons">
+		if (tour_controlmodemousetype == "moveto",
+			set(layer[theme2btn_ctrlmode_drag_to].visible, true);
+			set(layer[theme2btn_ctrlmode_move_to].visible, false);
+		,
+			set(layer[theme2btn_ctrlmode_move_to].visible, true);
+			set(layer[theme2btn_ctrlmode_drag_to].visible, false);
+		);
+	</action>
+	<action name="theme2updateControlModeButtons">
+	if (device.desktop,
+		set(theme2DisplayControlModeButtons, false);
+		if (theme2IsOpened, set(theme2DisplayControlModeButtons, true););
+		if (theme2DisplayControlModeButtons,
+			theme2ShowControlModeButtons();
+		,
+			theme2HideControlModeButtons();
+		);
+	,
+		theme2HideControlModeButtons();
+	);
+	</action>
+
+
+  <action name="theme2hideMenuControls">
+    set(theme2IsOpened, false);
+    set(layer[theme2btn_hidecontrols].visible, false);
+    set(layer[theme2btn_showcontrols].visible, true);
+    theme2updateFullscreenButtons();
+
+
+    theme2updateAutorotationButtons();
+
+
+    set(layer[theme2btn_up].visible  , false);
+    set(layer[theme2btn_down].visible, false);
+    set(layer[theme2btn_right].visible, false);
+    set(layer[theme2btn_left].visible , false);
+    set(layer[theme2btn_in].visible , false);
+    set(layer[theme2btn_out].visible, false);
+
+
+    theme2updateControlModeButtons();
+
+
+    theme2updateHelpButtons();
+
+
+    set(layer[theme2menu_controlbar_bg_img].visible, true);
+    set(layer[theme2menu_controlbar_bg].visible, true);
+    tween(layer[theme2menu_controlbar_bg_img].width , get(theme2backgroundwidthwhenclosed));
+    tween(layer[theme2menu_controlbar_bg].width , get(theme2backgroundwidthwhenclosed));
+    tween(layer[theme2menu_controlbar_bg_img].alpha, 0.8);
+  </action>
+  <action name="theme2showMenuControls">
+    set(theme2IsOpened, true);
+    set(layer[theme2btn_hidecontrols].visible, true);
+    set(layer[theme2btn_showcontrols].visible, false);
+    if(theme2backgroundwidthwhenopened == 0,
+      set(layer[theme2menu_controlbar_bg_img].visible, false);
+      set(layer[theme2menu_controlbar_bg].visible, false);
+    ,
+      set(layer[theme2menu_controlbar_bg_img].visible, true);
+      set(layer[theme2menu_controlbar_bg].visible, true);
+    );
+    tween(layer[theme2menu_controlbar_bg_img].alpha, 0.8);
+    tween(layer[theme2menu_controlbar_bg_img].width, get(theme2backgroundwidthwhenopened), 0.5, easeOutQuad, theme2showMenuButtons(););
+    tween(layer[theme2menu_controlbar_bg].width, get(theme2backgroundwidthwhenopened), 0.5, easeOutQuad, theme2showMenuButtons(););
+  </action>
+  <action name="theme2showMenuButtons">
+    if (device.desktop,
+    set(layer[theme2btn_up].visible  , true);
+    set(layer[theme2btn_down].visible, true);
+    );
+    if (device.desktop,
+    set(layer[theme2btn_right].visible, true);
+    set(layer[theme2btn_left].visible , true);
+    );
+    if (device.desktop,
+    set(layer[theme2btn_in].visible , true);
+    set(layer[theme2btn_out].visible, true);
+    );
+
+
+    theme2updateControlModeButtons();
+
+
+    theme2updateHelpButtons();
+
+
+    theme2updateFullscreenButtons();
+
+
+    theme2updateAutorotationButtons();
+
+
+  </action>
+
+  <layer name="theme2helpScreen" align="center" keep="true" onclick="theme2closeHelp();" url="%FIRSTXML%/graphics/classiccontrolbar/help_screen_bg.png" visible="false" height="10%" width="prop" displayed="false" alpha="0.8" />
+
+  <layer name="theme2helpScreenFg" align="center" keep="true" onclick="theme2closeHelp();" 
+         url="%FIRSTXML%/graphics/classiccontrolbar/help_screen_fg.png" 
+         alpha="0.8" 
+         height="50%" 
+         width="prop"
+         visible="false" />
+  <action name="theme2displayHelp">
+    set(layer[theme2helpScreen].displayed,true);
+    set(layer[theme2helpScreen].visible,true);
+    tween(layer[theme2helpScreen].height, 50%, 1, easeOutQuad,
+      set(layer[theme2helpScreenFg].visible,true);
+    );
+    theme2updateHelpButtons();
+  </action>
+  <action name="theme2closeHelp">
+    set(layer[theme2helpScreen].displayed,false);
+    set(layer[theme2helpScreenFg].visible,false);
+    tween(layer[theme2helpScreen].height, 10%, 1, easeOutQuad,
+      set(layer[theme2helpScreen].visible,false);
+    );
+    theme2updateHelpButtons();
+  </action>
+	<action name="theme2HideHelpButtons">
+		set(layer[theme2btn_display_help].visible, false);
+		set(layer[theme2btn_close_help].visible, false);
+	</action>
+	<action name="theme2ShowHelpButtons">
+		if (layer[theme2helpScreen].displayed,
+			set(layer[theme2btn_close_help].visible, true);
+			set(layer[theme2btn_display_help].visible, false);
+		,
+			set(layer[theme2btn_display_help].visible, true);
+			set(layer[theme2btn_close_help].visible, false);
+		);
+	</action>
+	<action name="theme2updateHelpButtons">
+	if (device.desktop,
+		set(theme2DisplayHelpButtons, false);
+		if (theme2IsOpened, set(theme2DisplayHelpButtons, true););
+		if (theme2DisplayHelpButtons,
+			theme2ShowHelpButtons();
+		,
+			theme2HideHelpButtons();
+		);
+	,
+		theme2HideHelpButtons();
+	);
+	</action>
+
+
+
+	<events name="theme2menufullscreenchangeevent"
+		onenterfullscreen="theme2updateFullscreenButtons();"
+		onexitfullscreen="theme2updateFullscreenButtons();"
+		keep="true"/>
+	<action name="theme2HideFullscreenButtons">
+		set(layer[theme2btn_openfs].visible , false);
+		set(layer[theme2btn_closefs].visible, false);
+	</action>
+	<action name="theme2ShowFullscreenButtons">
+		if (device.fullscreensupport,
+			if(tour_fullscreen,
+				set(layer[theme2btn_openfs].visible , false);
+				set(layer[theme2btn_closefs].visible, true);
+			,
+				set(layer[theme2btn_openfs].visible ,true);
+				set(layer[theme2btn_closefs].visible,false);
+			);
+		,
+			theme2HideFullscreenButtons();
+		);
+	</action>
+	<action name="theme2updateFullscreenButtons">
+		set(theme2DisplayFullscreenButtons, false);
+		if (theme2IsOpened, set(theme2DisplayFullscreenButtons, true););
+		if (theme2DisplayFullscreenButtons,
+			theme2ShowFullscreenButtons();
+		,
+			theme2HideFullscreenButtons();
+		);
+	</action>
+
+	<events name="theme2AutorotationEvents"
+		onstartautorotation="theme2updateAutorotationButtons();"
+		onresumeautorotation="theme2updateAutorotationButtons();"
+		onstopautorotation="theme2updateAutorotationButtons();"
+		onpauseautorotation="theme2updateAutorotationButtons();"
+		keep="true"/>
+	<action name="theme2HideAutorotationButtons">
+		set(layer[theme2btn_autorotate_off].visible, false);
+		set(layer[theme2btn_autorotate_on].visible , false);
+	</action>
+	<action name="theme2ShowAutorotationButtons">
+		if(tour_autorotateenabled==false,
+			set(layer[theme2btn_autorotate_off].visible, false);
+			set(layer[theme2btn_autorotate_on].visible , true);
+		,
+			set(layer[theme2btn_autorotate_off].visible, true);
+			set(layer[theme2btn_autorotate_on].visible , false);
+		);
+	</action>
+	<action name="theme2updateAutorotationButtons">
+		set(theme2DisplayAutorotationButtons, false);
+		if (theme2IsOpened, set(theme2DisplayAutorotationButtons, true););
+		if (theme2DisplayAutorotationButtons,
+			theme2ShowAutorotationButtons();
+		,
+			theme2HideAutorotationButtons();
+		);
+	</action>
+
+
+
+
+
+	<layer name="theme2menuTooltipStyle"
+		keep="true"
+		enabled="false"
+		capture="false"
+		url="%FIRSTXML%/graphics/textfield.swf"
+		align="center"
+		background="true"
+		backgroundcolor="0xdedede"
+		backgroundalpha="0.8"
+		border="false"
+		bordercolor="0xffffff"
+		css="color:#e6e6e6;font-family:Helvetica;font-weight:bold;font-size:16px;text-align:center;"
+		width="200"
+		height="20"
+		autoheight="true"
+			edge="bottom"
+		textshadow="1.0"
+		selectable="false"
+		zorder="0"
+		html=""
+		visible="false"
+		devices="html5"
+		/>
+
+	
+	<!-- ************ -->
+	<!-- PanotourMaps -->
+	<!-- ************ -->
+	
+		<ptplugin name="panotourmaps" lat="-9999" lng="-9999" zoom="11" maptypelayer="road" position="left" size="30" resizable="true" multimap="false" openatstart="true" state="true" bgcolor="f2f2f2" zorder="3" engine="KolorMap">
+	
+		<radar visible="true" radius="8000" linktozoom="true" quality="8" linecolor="ffffff" lineopacity="0.500007629510948" linewidth="1" fillcolor="ffffff" fillopacity="0.300007629510948" />
+		
+		
+		<controls zoom="true" pan="true" scale="false" maptype="true" overview="false">
+			<ui draggable="true" scrollable="true" dblclick="true" />
+		</controls>
+		
+		<markerSelected name="" heading="" fov="" />
+		
+		
+		
+			<!-- PanotourMaps markers counter : 3 -->
+				<marker name="spotmap48" lat="60.1828422546" lng="24.9880981445" heading="0" draggable="false" desc="spotmap48_tooltip" desctype="info" onhover="false" isscene="true" scene="pano24" jsclick="spotmap48ActionSpotMap">
+					<markericon url="spots/hotspot_information_user_defaultmap0.png" iconwidth="32" iconheight="32" shadow="false" iconanchor="center" />
+				</marker>
+				<marker name="spotmap49" lat="60.1809844971" lng="24.9791584015" heading="0" draggable="false" desc="spotmap49_tooltip" desctype="info" onhover="false" isscene="true" scene="pano27" jsclick="spotmap49ActionSpotMap">
+					<markericon url="spots/hotspot_information_user_defaultmap0.png" iconwidth="32" iconheight="32" shadow="false" iconanchor="center" />
+				</marker>
+				<marker name="spotmap50" lat="60.1881103516" lng="24.9790439606" heading="-175.000000000002" draggable="false" desc="spotmap50_tooltip" desctype="info" onhover="false" isscene="true" scene="pano35" jsclick="spotmap50ActionSpotMap">
+					<markericon url="spots/hotspot_information_user_defaultmap0.png" iconwidth="32" iconheight="32" shadow="false" iconanchor="center" />
+				</marker>
+		
+		
+		
+	</ptplugin>
+	
+	<action name="kolorMapJsReady-panotourmaps">
+		set(ptplugin[panotourmaps].jsready, true);
+	</action>
+	
+	
+	
+		<!-- PanotourMaps markers counter : 3 -->
+				<action name="spotmap48ActionSpotMap">
+          if (xml.scene != pano24,
+            mainloadscene(pano24);
+          );
+      lookat(get(panoview.h), get(panoview.v), get(panoview.fov));
+    </action>
+				<action name="spotmap49ActionSpotMap">
+          if (xml.scene != pano27,
+            mainloadscene(pano27);
+          );
+      lookat(get(panoview.h), get(panoview.v), get(panoview.fov));
+    </action>
+				<action name="spotmap50ActionSpotMap">
+          if (xml.scene != pano35,
+            mainloadscene(pano35);
+          );
+      lookat(get(panoview.h), get(panoview.v), get(panoview.fov));
+    </action>
+	
+	
+	
+	
+	
+	<!-- Begin PanotourMaps events and actions -->
+	<events name="panotourmapsEvents" 
+	onxmlcomplete="ifnot(panotourmapsMapLoaded,set(tour_displaymap,true););" 
+	onnewpano="panotourmapsActivateDefaultMarker();" 
+	onremovepano="panotourmapsUnselectMarker();" 
+	onviewchanged="panotourmapsOnviewchange()" 
+	onhidetourmap="panotourmapsClosetourmap();" 
+	onshowtourmap="if(tour_displaymap,panotourmapsOpentourmap(););" 
+	onenterfullscreen="panotourmapsUpdateMaxMapSize();" 
+	onexitfullscreen="panotourmapsUpdateMaxMapSize();" 
+	keep="true" />
+	
+	
+	<krpano panotourmapsMarkerDefaultSet="false" />
+	<krpano panotourmapsMapLoaded="false" />
+	
+	
+	<action name="panotourmapsUpdateMaxMapSize">
+		js(invokePluginFunction(panotourmaps, updateResizableMapMaxSize));
+	</action>
+	
+	<action name="kolorMapJsReadyLoop-panotourmaps">
+		if(ptplugin[panotourmaps].jsready,
+			stopdelayedcall(jsReadyLoopId-panotourmaps);
+			if(%1 == "close",
+				panotourmapsClosetourmap();
+			,
+				panotourmapsOpentourmap();
+			);
+		,
+			delayedcall(jsReadyLoopId-panotourmaps, 0.2, kolorMapJsReadyLoop-panotourmaps(%1));
+		);
+	</action>
+	
+	<action name="panotourmapsClosetourmap">
+		if(ptplugin[panotourmaps].jsready,
+			set(ptplugin[panotourmaps].state, false);
+			js(invokePluginFunction(panotourmaps, openCloseMap, close));
+		,
+			kolorMapJsReadyLoop-panotourmaps(close);
+		);
+	</action>
+	
+	
+	<action name="panotourmapsOpentourmap">
+		if(ptplugin[panotourmaps].jsready,
+			set(ptplugin[panotourmaps].state, true);
+			js(invokePluginFunction(panotourmaps, openCloseMap, open));
+		,
+			kolorMapJsReadyLoop-panotourmaps(open);
+		);
+	</action>
+	
+	
+	<action name="panotourmapsChangescene">
+		if(xml.scene != '%1',mainloadscene(%1);panotourmapsGoMarker(%2));
+	</action>
+	
+	<action name="panotourmapsOnviewchange">
+		if ( panotourmapsMapLoaded == true,
+			ifnot(ptplugin[panotourmaps].markerSelected.name == "",
+				js(invokePluginFunction(panotourmaps, changeDirection, get(view.hlookat), get(view.fov)));
+			);
+		);
+	</action>
+	
+	<action name="panotourmapsGoMarker">
+		if ( panotourmapsMapLoaded == true,
+			
+			set(ptplugin[panotourmaps].markerSelected.name, %1);
+			set(ptplugin[panotourmaps].markerSelected.heading, get(view.hlookat));
+			set(ptplugin[panotourmaps].markerSelected.fov, get(view.fov));
+			js(invokePluginFunction(panotourmaps, changeCurrentMarker, %1, get(view.hlookat), get(view.fov)));
+			
+			if( panotourmapsMarkerDefaultSet == false,
+				js(setMapDefaultMarker(panotourmaps, %1, get(view.hlookat), get(view.fov)));
+				set(panotourmapsMarkerDefaultSet,true);
+			);
+		);
+	</action>
+	
+	<action name="panotourmapsUnselectMarker">
+		set(ptplugin[panotourmaps].markerSelected.name, "");
+		js(invokePluginFunction(panotourmaps, unselectCurrentMarker));
+		
+		js(setMapDefaultMarker(panotourmaps, null, null, null));
+	</action>
+	
+	<action name="panotourmapsActivateDefaultMarker">
+		set(panotourmapsMapLoaded, true);
+		
+		set(panotourmapsMapSpotFound, false);
+		set(defaultmarkerinc-wait,50);
+		for(set(defaultmarkerinc,0), defaultmarkerinc LT ptplugin[panotourmaps].marker.count , inc(defaultmarkerinc),
+			if(defaultmarkerinc-wait == defaultmarkerinc,
+				add(defaultmarkerinc-wait,50);
+				wait(0);
+			);
+			if(ptplugin[panotourmaps].marker[get(defaultmarkerinc)].isscene == true,
+				if(panotourmapsMapSpotFound == false,
+					if(ptplugin[panotourmaps].marker[get(defaultmarkerinc)].scene == xml.scene,
+						ifnot(ptplugin[panotourmaps].marker[get(defaultmarkerinc)].name == ptplugin[panotourmaps].markerSelected.name,
+							panotourmapsGoMarker(get(ptplugin[panotourmaps].marker[get(defaultmarkerinc)].name));
+						);
+						set(panotourmapsMapSpotFound, true);
+					);
+				);
+			);
+		);
+		
+		if(panotourmapsMapSpotFound == false,
+			panotourmapsUnselectMarker();
+		);
+	</action>
+	
+  <!-- Hide / Show Controls -->
+  <action name="hideTourControls">set(tour_displaycontrols, false);events.dispatch(hidetourcontrols);</action>
+  <action name="showTourControls">set(tour_displaycontrols, true); events.dispatch(showtourcontrols);</action>
+  <!-- Fullscreen Management -->
+  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);js(setFullscreen(false));</action>
+  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);js(setFullscreen(true));</action>
+  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
+
+  
+  <events name="krpanoExitFullscreenEvent"
+    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
+    keep="true" />
+
+  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
+  <action name="enterFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,true);events.dispatch(onenterfullscreen);</action>
+  <action name="exitFullScreenFallback">set(fullscreen,false);</action>
+  <action name="enterFullScreenFallback">set(fullscreen,true);</action>
+  
+  <action name="resizeFullScreenEvent">delayedcall(0,updatescreen(););</action>
+  <!-- MAP -->
+  <action name="hideMap">set(tour_displaymap, false);events.dispatch(onhidetourmap);</action>
+  <action name="showMap">set(tour_displaymap, true); events.dispatch(onshowtourmap);</action>
+</krpano>

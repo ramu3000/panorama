@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano>
+
+<!-- ************************ -->
+<!--         Messages         -->
+<!-- ************************ -->
+
+  <data name="en_project_title"><![CDATA[New Project]]></data>
+
+
+
+  <data name="en_pano24_title"><![CDATA[[Group 1]-DJI_0106_DJI_0163-58 images_jpg]]></data>
+
+
+  <data name="en_pano27_title"><![CDATA[[Group 3]-DJI_0168_DJI_0221-54 images_0000]]></data>
+
+
+  <data name="en_pano35_title"><![CDATA[[Group 4]-DJI_0223_DJI_0279-57 images_dng]]></data>
+
+
+	<data name="en_spotmap48_tooltip"><![CDATA[]]></data>
+	<data name="en_spotmap49_tooltip"><![CDATA[]]></data>
+	<data name="en_spotmap50_tooltip"><![CDATA[]]></data>
+
+
+
+
+  <data name="en_controlBar_classiczoomInTip"><![CDATA[Zoom in]]></data>
+  <data name="en_controlBar_classiczoomOutTip"><![CDATA[Zoom out]]></data>
+  <data name="en_controlBar_classicmoveLeftTip"><![CDATA[Move left]]></data>
+  <data name="en_controlBar_classicmoveRightTip"><![CDATA[Move right]]></data>
+  <data name="en_controlBar_classicmoveUpTip"><![CDATA[Move up]]></data>
+  <data name="en_controlBar_classicmoveDownTip"><![CDATA[Move down]]></data>
+  <data name="en_controlBar_classicopenFsTip"><![CDATA[Enter fullscreen]]></data>
+  <data name="en_controlBar_classiccloseFsTip"><![CDATA[Exit fullscreen]]></data>
+  <data name="en_controlBar_classicautorotateOnTip"><![CDATA[Start autorotation]]></data>
+  <data name="en_controlBar_classicautorotateOffTip"><![CDATA[Stop autorotation]]></data>
+  <data name="en_controlBar_classicdisplayHelpTip"><![CDATA[Show help screen]]></data>
+  <data name="en_controlBar_classichideHelpTip"><![CDATA[Hide help screen]]></data>
+  <data name="en_controlBar_classicdisplayControlsTip"><![CDATA[Show controls]]></data>
+  <data name="en_controlBar_classichideControlsTip"><![CDATA[Hide controls]]></data>
+  <data name="en_controlBar_classicctrlmodeDragTip"><![CDATA[Change control mode]]></data>
+  <data name="en_controlBar_classicctrlmodeMoveTip"><![CDATA[Change control mode]]></data>
+  <data name="en_panotourmapskey"><![CDATA[]]></data>
+
+
+
+
+
+
+
+
+
+</krpano>
